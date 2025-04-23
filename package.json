@@ -2,6 +2,7 @@
   "name": "SlayTheHire",
   "version": "1.0.0",
   "dependencies": {
+    "@pixi/filter-glow": "^5.2.1",
     "gsap": "^3.12.5",
     "pixi.js": "^8.5.2"
   },

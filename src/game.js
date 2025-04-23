@@ -1,15 +1,15 @@
 // game.js
 import { gameState } from './gameState.js';
-import { KnightCard } from './cards.js';
+import { ResumeCard } from './cards.js';
 import { app } from './app.js';
 import { arrangeCardsInHand, centerX, centerY, radius } from './ui.js';
 
 // Initializes the deck (Currently creates a 10 card deck of knight cards
 export function initializeDeck() {
     for (let i = 0; i < 10; i++) {
-        gameState.playerDeck.push(new KnightCard());
+        gameState.playerDeck.push(new ResumeCard());
     }
-    console.log(`${gameState.playerDeck.length} Knight cards added to the deck!`);
+    console.log(`${gameState.playerDeck.length} Resume cards added to the deck!`);
 }
 
 // Allows for cards to be drawn from the deck and place into the hand

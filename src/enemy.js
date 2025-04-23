@@ -8,10 +8,11 @@ export class Enemy {
         this.sprite = new Sprite(texture);
         this.health = health;
 
-        const style = new TextStyle({ fill: '#990000', fontSize: 24, fontWeight: 'bold' });
-        this.healthText = new Text("HP: " + this.health, style);
+        const style = new TextStyle({ fill: '#990000', fontSize: 24, fontWeight: 'bold', dropShadow: true });
+        this.healthText = new Text("Wall of Recruitment \n         HP: " + this.health, style);
 
         this.sprite.anchor.set(0.5);
+        this.sprite.scale.set(0.5)
         this.healthText.anchor.set(0.5);
 
         this.sprite.eventMode = 'dynamic';
@@ -24,10 +25,10 @@ export class Enemy {
     }
 
     setPosition(x, y) {
-        this.sprite.x = x;
-        this.sprite.y = y;
-        this.healthText.x = x;
-        this.healthText.y = y - 120;
+        this.sprite.x = app.screen.width / 2;
+        this.sprite.y = app.screen.height / 4;
+        this.healthText.x = app.screen.width / 2;
+        this.healthText.y = app.screen.height / 4 + 220;
     }
 
     highlight(isHovered) {
@@ -50,7 +51,7 @@ export class Enemy {
     takeDamage(amount) {
         this.health -= amount;
         console.log(`Enemy takes ${amount} damage! Remaining HP: ${this.health}`);
-        this.healthText.text = `HP: ${this.health}`;
+        this.healthText.text = `Wall of Recruitment \n         HP: ${this.health}`;
         this.sprite.tint = 0xff0000;
         setTimeout(() => {
             this.sprite.tint = 0xffffff;

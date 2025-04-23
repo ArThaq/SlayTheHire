@@ -15,10 +15,27 @@ export function arrangeCardsInHand(cards, centerX, centerY, radius, startAngle =
     cards.forEach((cardObj, index) => {
         const card = cardObj.sprite;
         const angle = startAngle + angleStep * index;
-        card.x = centerX + radius * Math.cos(angle);
-        card.y = centerY + radius * Math.sin(angle);
+        const targetX = centerX + radius * Math.cos(angle);
+        const targetY = centerY + radius * Math.sin(angle);
         card.rotation = angle;
-        card.originalPosition = { x: card.x, y: card.y, rotation: card.rotation };
+
+        // Set initial state for animation
+        card.alpha = 0;
+        card.x = targetX;
+        card.y = targetY + 100; // start slightly below
+        card.rotation = angle;
+
+        // Save original position
+        card.originalPosition = { x: targetX, y: targetY, rotation: angle };
+
+        // Animate in
+        gsap.to(card, {
+            y: targetY,
+            alpha: 1,
+            duration: 0.5,
+            delay: 0.05 * index, // small delay between cards
+            ease: "power2.out",
+        });
     });
 }
 
@@ -41,7 +58,7 @@ export  function returnCardToHand(cardSprite) {
 
 // Create and export the play area
 export const playArea = new Graphics();
-playArea.rect(app.screen.width / 4, app.screen.height / 2 - 350, app.screen.width / 2, 300);
-playArea.fill({color: 0xff0000, alpha : 0.3});
+playArea.rect(app.screen.width / 4, app.screen.height / 2 - 450, app.screen.width / 2, 500);
+playArea.fill({color: 0xff3333, alpha : 0.3});
 app.stage.addChild(playArea);
 playArea.eventMode = 'static';

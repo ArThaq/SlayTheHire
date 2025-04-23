@@ -13,7 +13,7 @@ await app.init({
 
 // Set up document styles and attach the canvas to the page.
 export function setupAppCanvas() {
-    document.body.style.backgroundImage = "url('http://localhost:5173/media/background/SpireBackground.png')";
+    document.body.style.backgroundImage = "url('http://localhost:5173/media/background/Matrix4Background.png')";
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundPosition = "center";

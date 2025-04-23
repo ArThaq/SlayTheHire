@@ -1,11 +1,13 @@
 // cards.js
-import { Sprite, Text } from 'pixi.js';
+import { Sprite, Text, ColorMatrixFilter } from 'pixi.js';
 import { app } from './app.js';
 import {dragOffset, onDragMove} from './drag.js';
 import { gameState } from './gameState.js';
 import { drawCard } from './game.js';
 import { textures } from './assets.js';
 import { returnCardToHand } from "./ui";
+import { createParticleBurst } from './particles.js';
+
 
 export class Card {
     constructor(texture, energyCost = 0) {
@@ -21,7 +23,20 @@ export class Card {
         // Enable interactions.
         this.sprite.eventMode = 'dynamic';
         this.sprite.buttonMode = true;
+
+        // Adds a hand cursor while hovering cards
         this.sprite.cursor = 'pointer';
+
+        const hoverFilter = new ColorMatrixFilter();
+        hoverFilter.brightness(1.2, false); // Slight glow-like effect
+
+        this.sprite.on('pointerover', () => {
+            this.sprite.filters = [hoverFilter];
+        });
+
+        this.sprite.on('pointerout', () => {
+            this.sprite.filters = [];
+        });
 
         // Bind drag events.
         this.sprite.on('pointerdown', this.onDragStart.bind(this));
@@ -80,7 +95,8 @@ export class Card {
                             gameState.selectedEnemy = gameState.enemies[0];
                             console.log("No target selected. Attacking the front-most enemy!");
                         }
-                        this.effect();
+                        this.effect(); // Activates that card's effect
+                        createParticleBurst(this.sprite.x, this.sprite.y); // Creates a particle burst when a card is discarded
                         if (gameState.discardType === "conditional") {
                             gameState.discardType = "normal";
                         } else {
@@ -106,17 +122,17 @@ export class Card {
 // Derived Card Classes
 // ---------------------------------------------------------------------
 
-export class KnightCard extends Card {
+export class ResumeCard extends Card {
     constructor() {
         // Use the preloaded knight texture.
-        super(textures["knightCard"], 0);
+        super(textures["resume"], 0);
         gameState.discardType = "normal";
     }
     effect() {
         if (gameState.selectedEnemy) {
             const damage = gameState.doubleDamageActive ? 20 : 10;
             gameState.selectedEnemy.takeDamage(damage);
-            console.log(`Knight card effect: Deal ${damage} damage to the enemy!`);
+            console.log(`Resume card effect: Deal ${damage} damage to the enemy!`);
         } else {
             console.log("No enemy targeted.");
         }
@@ -136,12 +152,12 @@ export class VacationCard extends Card {
     }
 }
 
-export class DoubleDamageCard extends Card {
+export class ReferentCard extends Card {
     constructor() {
-        super(textures["doubleDamageCard"], 3);
+        super(textures["referent"], 3);
     }
     effect() {
-        console.log("Double Damage Card used. Doubling attack damage.");
+        console.log("Referent card used used. Doubling attack damage.");
         gameState.doubleDamageActive = true;
     }
 }

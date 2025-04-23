@@ -5,8 +5,9 @@ import { gameState } from './gameState.js';
 import { initializeDeck } from './game.js';
 import { arrangeCardsInHand, centerX, centerY, radius } from './ui.js';
 import { Enemy } from './enemy.js';
-import { KnightCard, VacationCard, DoubleDamageCard, BrainstormCard } from './cards.js';
+import { ResumeCard, VacationCard, ReferentCard, BrainstormCard } from './cards.js';
 import { Text } from 'pixi.js';
+import { initGlitchGrid } from './glitchGrid.js';
 
 (async () => {
     // Initialize the application and attach the canvas.
@@ -18,8 +19,8 @@ import { Text } from 'pixi.js';
     await loadAssets();
 
     // Create enemies.
-    for (let i = 0; i < 3; i++) {
-        const enemy = new Enemy(textures["bandit"], 80);
+    for (let i = 0; i < 1; i++) {
+        const enemy = new Enemy(textures["wallOfRecruitment"], 220);
         enemy.setPosition(
             app.screen.width / 1.2 + (i - 1) * 200,
             app.screen.height / 1.5
@@ -31,8 +32,9 @@ import { Text } from 'pixi.js';
 
     // Create and display the energy counter.
     const energyDisplay = new Text(`Energy: ${gameState.currentEnergy}`, {
-        fontSize: 24,
-        fill: 0xffffff,
+        fontSize: 30,
+        fontStyle: "bold",
+        fill: 0x79f558,
     });
     energyDisplay.x = 10;
     energyDisplay.y = 10;
@@ -45,19 +47,22 @@ import { Text } from 'pixi.js';
     // Initialize the deck.
     initializeDeck();
 
+    // Initialize glitch grid visual effect
+    initGlitchGrid();
+
     // Create the initial hand.
     for (let i = 0; i < 5; i++) {
-        const knightCard = new KnightCard();
-        gameState.cards.push(knightCard);
-        app.stage.addChild(knightCard.sprite);
+        const resumeCard = new ResumeCard();
+        gameState.cards.push(resumeCard);
+        app.stage.addChild(resumeCard.sprite);
     }
     const vacationCard = new VacationCard();
     gameState.cards.push(vacationCard);
     app.stage.addChild(vacationCard.sprite);
 
-    const doubleDamageCard = new DoubleDamageCard();
-    gameState.cards.push(doubleDamageCard);
-    app.stage.addChild(doubleDamageCard.sprite);
+    const referentCard = new ReferentCard();
+    gameState.cards.push(referentCard);
+    app.stage.addChild(referentCard.sprite);
 
     const brainstormCard = new BrainstormCard();
     gameState.cards.push(brainstormCard);

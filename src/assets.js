@@ -3,11 +3,12 @@ import { Assets } from 'pixi.js';
 
 // Gives aliases to card art location for easier handling
 export const assetList = [
-    { alias: 'knightCard', src: 'http://localhost:5173/media/cards/knight.jpg' },
-    { alias: 'bandit', src: 'http://localhost:5173/media/enemies/bandit.jpg' },
+    { alias: 'resume', src: 'http://localhost:5173/media/cards/resume.png' },
+    { alias: 'wallOfRecruitment', src: 'http://localhost:5173/media/enemies/wallOfRecruitment.png' },
     { alias: 'vacation', src: 'http://localhost:5173/media/cards/vacation.jpg' },
-    { alias: 'doubleDamageCard', src: 'http://localhost:5173/media/cards/eee.png' },
+    { alias: 'referent', src: 'http://localhost:5173/media/cards/referent.png' },
     { alias: 'brainstorm', src: 'http://localhost:5173/media/cards/brainstorm.png' },
+    { alias: 'particle', src:'http://localhost:5173/media/effects/particles.png' },
 ];
 
 export const textures = {};
