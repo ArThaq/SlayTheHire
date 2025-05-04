@@ -1,7 +1,7 @@
 // ui.js
 import { Graphics } from 'pixi.js';
 import { app } from './app.js';
-import {gsap} from "gsap";
+import { gsap } from "gsap";
 
 // Constants for hand positioning.
 export const centerX = app.screen.width / 2;

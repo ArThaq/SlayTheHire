@@ -31,10 +31,13 @@ import { initGlitchGrid } from './glitchGrid.js';
     }
 
     // Create and display the energy counter.
-    const energyDisplay = new Text(`Energy: ${gameState.currentEnergy}`, {
-        fontSize: 30,
-        fontStyle: "bold",
-        fill: 0x79f558,
+    const energyDisplay = new Text({
+        text: `Energy: ${gameState.currentEnergy}`,
+        style: {
+            fontSize: 30,
+            fontStyle: "bold",
+            fill: 0x79f558,
+        },
     });
     energyDisplay.x = 10;
     energyDisplay.y = 10;

@@ -9,7 +9,7 @@ export class Enemy {
         this.health = health;
 
         const style = new TextStyle({ fill: '#990000', fontSize: 24, fontWeight: 'bold', dropShadow: true });
-        this.healthText = new Text("Wall of Recruitment \n         HP: " + this.health, style);
+        this.healthText = new Text({ text: "Wall of Recruitment \n         HP: " + this.health, style});
 
         this.sprite.anchor.set(0.5);
         this.sprite.scale.set(0.5)
@@ -24,7 +24,7 @@ export class Enemy {
         this.sprite.on('pointerdown', () => this.select());
     }
 
-    setPosition(x, y) {
+    setPosition() {
         this.sprite.x = app.screen.width / 2;
         this.sprite.y = app.screen.height / 4;
         this.healthText.x = app.screen.width / 2;

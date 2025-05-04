@@ -1,19 +1,21 @@
 // cards.js
-import { Sprite, Text, ColorMatrixFilter } from 'pixi.js';
+import { Sprite, Text, ColorMatrixFilter, Container } from 'pixi.js';
 import { app } from './app.js';
-import {dragOffset, onDragMove} from './drag.js';
+import { dragOffset, onDragMove } from './drag.js';
 import { gameState } from './gameState.js';
 import { drawCard } from './game.js';
 import { textures } from './assets.js';
 import { returnCardToHand } from "./ui";
 import { createParticleBurst } from './particles.js';
-
+import { tooltipManager } from './tooltipManager.js';
 
 export class Card {
     constructor(texture, energyCost = 0) {
+        this.container = new Container();
         this.sprite = new Sprite(texture);
         this.energyCost = energyCost;
         this.label = texture.label || 'Unknown Card';
+        this.description = this.label;
 
         // Configure sprite appearance and size.
         this.sprite.anchor.set(1.5, 1.5);
@@ -31,11 +33,13 @@ export class Card {
         hoverFilter.brightness(1.2, false); // Slight glow-like effect
 
         this.sprite.on('pointerover', () => {
-            this.sprite.filters = [hoverFilter];
+            this.sprite.filters = [hoverFilter]; // Highlights hovered card
+            tooltipManager.show(this.description || 'No description'); // Display the tooltip
         });
 
         this.sprite.on('pointerout', () => {
             this.sprite.filters = [];
+            tooltipManager.hide();
         });
 
         // Bind drag events.
@@ -43,15 +47,23 @@ export class Card {
         this.sprite.on('pointerup', this.onDragEnd.bind(this));
         this.sprite.on('pointerupoutside', this.onDragEnd.bind(this));
 
+        // Add sprite to container
+        this.container.addChild(this.sprite);
+
         // Display the energy cost on the card.
-        const energyCostText = new Text(this.energyCost, {
-            fontSize: 18,
-            fill: 0xffd700,
+        const energyCostText = new Text({
+            text: this.energyCost,
+            style: {
+                fontSize: 18,
+                fill: 0xffd700,
+            },
         });
         energyCostText.anchor.set(0.5, 0.5);
         energyCostText.x = this.sprite.width / 2 - 100;
         energyCostText.y = this.sprite.height / 2 - 10;
-        this.sprite.addChild(energyCostText);
+
+        // Add label to container
+        this.container.addChild(energyCostText);
     }
 
     onDragStart() {
@@ -115,6 +127,7 @@ export class Card {
                 app.stage.off('pointermove');
             });
         }
+        tooltipManager.hide();
     }
 }
 
