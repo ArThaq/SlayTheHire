@@ -140,6 +140,8 @@ export class ResumeCard extends Card {
         // Use the preloaded knight texture.
         super(textures["resume"], 0);
         gameState.discardType = "normal";
+        this.description = "Resume\nDeal 10 damage to the targeted enemy. If a buff is active, deal 20 instead (Costs 0 energy)";
+
     }
     effect() {
         if (gameState.selectedEnemy) {
@@ -155,6 +157,7 @@ export class ResumeCard extends Card {
 export class VacationCard extends Card {
     constructor() {
         super(textures["vacation"], 0);
+        this.description = "Vacation\nRestore your energy to the maximum value (Costs 0 energy)";
     }
     effect() {
         console.log("Vacation Card used. Restoring energy to max.");
@@ -168,6 +171,8 @@ export class VacationCard extends Card {
 export class ReferentCard extends Card {
     constructor() {
         super(textures["referent"], 3);
+        this.description = "Referent\nResume cards now deal double damage (Costs 3 energy)";
+
     }
     effect() {
         console.log("Referent card used used. Doubling attack damage.");
@@ -178,19 +183,23 @@ export class ReferentCard extends Card {
 export class BrainstormCard extends Card {
     constructor() {
         super(textures["brainstorm"], 1);
+        this.description = "Brainstorm\nDraw 3 cards, each use reduces cards drawn by 1. (Costs 1 energy)";
         this.uses = 0;
+        this.drawAmount = 3;
+
     }
     effect() {
         gameState.discardType = "conditional";
-        this.uses++;
-        console.log("Number of uses : " + this.uses);
-        let drawAmount = 4 - this.uses;
-        if (drawAmount > 1) {
-            console.log(`Brainstorm used. Drawing ${drawAmount} cards.`);
-            for (let i = 0; i < drawAmount; i++) {
+        if (this.drawAmount > 1) {
+            console.log(`Brainstorm used. Drawing ${this.drawAmount} cards.`);
+            for (let i = 0; i < this.drawAmount; i++) {
                 drawCard();
             }
             returnCardToHand(this.sprite);
+            this.uses++;
+            this.drawAmount = 3 - this.uses;
+            this.description = "Brainstorm\nDraw " + this.drawAmount + " cards, each use reduces cards drawn by 1 (Costs 1 energy)";
+            console.log("Number of uses : " + this.uses);
         } else {
             console.log("Brainstorm used 3 times. Discarding.");
             drawCard();

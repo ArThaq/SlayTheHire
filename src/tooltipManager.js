@@ -63,6 +63,10 @@ class TooltipManager {
 
         this.container.visible = true;
         this.targetAlpha = 1;
+
+        // Ensures that the tooltip is displayed on top of all other layers
+        app.stage.removeChild(this.container);
+        app.stage.addChild(this.container);
     }
 
     hide() {
