@@ -9,17 +9,28 @@ import { ResumeCard, VacationCard, ReferentCard, BrainstormCard } from './cards.
 import { Text } from 'pixi.js';
 import { initGlitchGrid } from './glitchGrid.js';
 
+console.log('SlayTheHire booting');
+
+
 (async () => {
     // Initialize the application and attach the canvas.
     setupAppCanvas();
+    console.log('SlayTheHire booting');
+
 
     app.stage.eventMode = 'dynamic';
+    console.log('SlayTheHire booting');
+
 
     // Load assets.
     await loadAssets();
+    console.log('SlayTheHire booting');
+
 
     // Create enemies.
     for (let i = 0; i < 1; i++) {
+        console.log('SlayTheHire booting');
+
         const enemy = new Enemy(textures["wallOfRecruitment"], 220);
         enemy.setPosition(
             app.screen.width / 1.2 + (i - 1) * 200,

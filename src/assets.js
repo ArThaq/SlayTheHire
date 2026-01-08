@@ -1,14 +1,16 @@
 // assets.js
 import { Assets } from 'pixi.js';
 
+const base = import.meta.env.BASE_URL;
+
 // Gives aliases to card art location for easier handling
 export const assetList = [
-    { alias: 'resume', src: 'http://localhost:5173/media/cards/resume.png' },
-    { alias: 'wallOfRecruitment', src: 'http://localhost:5173/media/enemies/wallOfRecruitment.png' },
-    { alias: 'vacation', src: 'http://localhost:5173/media/cards/vacation.jpg' },
-    { alias: 'referent', src: 'http://localhost:5173/media/cards/referent.png' },
-    { alias: 'brainstorm', src: 'http://localhost:5173/media/cards/brainstorm.png' },
-    { alias: 'particle', src:'http://localhost:5173/media/effects/particles.png' },
+    { alias: 'resume', src: `${base}media/cards/resume.png` },
+    { alias: 'wallOfRecruitment', src: `${base}media/enemies/wallOfRecruitment.png` },
+    { alias: 'vacation', src: `${base}media/cards/vacation.jpg` },
+    { alias: 'referent', src: `${base}media/cards/referent.png` },
+    { alias: 'brainstorm', src: `${base}media/cards/brainstorm.png` },
+    { alias: 'particle', src: `${base}media/effects/particles.png` },
 ];
 
 export const textures = {};
